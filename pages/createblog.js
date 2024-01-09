@@ -2,6 +2,7 @@ import React,{useState,useEffect} from 'react'
 import { v4 as uuidv4 } from 'uuid';
 import {db, serverTimestamp, storage} from '../firebase'
 import Link from 'next/link';
+import { useRouter } from 'next/router'
 
 
 
@@ -12,6 +13,7 @@ const CreateBlog = ({user}) => {
     const [body,setBody] = useState('')
     const [image,setImage] = useState(null)
     const [url,setUrl] = useState('')
+    const router = useRouter()
 
     useEffect(()=>{
       if (url){
@@ -23,7 +25,8 @@ const CreateBlog = ({user}) => {
             postedBy:user.uid,
             createdAt:serverTimestamp()
           })
-          M.toast({html: 'blog created successfully',classes:"green"})   
+          M.toast({html: 'blog created successfully',classes:"green"})
+          router.push('/')   
         } catch (error) {
           M.toast({html: error.message,classes:"red"})   
         }

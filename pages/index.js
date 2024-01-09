@@ -73,6 +73,7 @@ export async function getServerSideProps(context) {
   const querySnap =await  db.collection('blogs').orderBy('createdAt',"desc")
   .limit(3)
   .get()
+  console.log("query",querySnap)
   const Allblogs =  querySnap.docs.map(docSnap=>{
     return {
       ...docSnap.data(),
@@ -80,7 +81,7 @@ export async function getServerSideProps(context) {
       id:docSnap.id
     }
   })
-
+// console.log(Allblogs)
 
   return {
     props: {Allblogs}, // will be passed to the page component as props
