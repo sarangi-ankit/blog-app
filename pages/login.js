@@ -1,16 +1,18 @@
 import {useState} from 'react'
 import Link from 'next/link'
-import {auth} from '../firebase'
+import { auth } from '../firebase'
+import { useRouter } from 'next/router'
 
 export default function Login() {
     const [email,setEmail] = useState('')
     const [password,setPassword] = useState('')
-
+    const router = useRouter()
        const handleSubmit = async (e)=>{
         e.preventDefault()
         try{
           const result = await auth.signInWithEmailAndPassword(email,password)
-          M.toast({html: 'welcome to my blog',classes:"green"})  
+          M.toast({ html: 'welcome to my blog', classes: "green" })  
+          router.push('/')
         }catch(err){
           M.toast({html: err.message,classes:"red"})    
         }
